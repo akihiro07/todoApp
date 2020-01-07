@@ -1,0 +1,38 @@
+<%= form_with(model: todo, local: true) do |form| %> <!-- https://qiita.com/hmmrjn/items/24f3b8eade206ace17e2 -->
+  <!-- ===== error ===== -->
+  <% if todo.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(todo.errors.count, "error") %> prohibited this todo from being saved:</h2>
+
+      <ul>
+      <% todo.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <!-- ===== form ===== -->
+  <div class="field">
+    <!-- form.xxx -> xxxはformのビルドヘルパーと言うらしい -->
+    <!-- => for="todo_title" -->
+    <%= form.label :title %>
+    <!-- => name="todo[title]" id="todo_title" -->
+    <!-- nameに入っている名前でデータを飛ばす(name="xxx"のxxx部分) -->
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :detail %>
+    <%= form.text_area :detail %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.number_field :status %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
