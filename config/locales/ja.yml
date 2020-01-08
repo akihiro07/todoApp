@@ -1,0 +1,11 @@
+ja:
+  activerecord:
+    attributes:
+        todo:
+          title: タイトル
+          detail: 詳細
+          priority: 優先順位
+          category_id: カテゴリー
+        category:
+          name: 名前
+          description: 詳細

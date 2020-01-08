@@ -2,14 +2,14 @@ class TodosController < ApplicationController
   # before_action :action名, only: [:action名1, :action名2, ...]
   # before_action :action名  =>  actionの前にcall
   # only: [:action名1, :action名2, ...]  =>  ここで指定したactionの前にbefore_actionがcall
-  before_action :set_todo, only: [:show, :edit, :update, :destroy]
+  before_action :set_todo, only: [:show, :edit, :update, :status, :destroy]
 
   # GET /todos
   # GET /todos.json
   # '/'でtodosコントローラーが叩かれてindexアクションがcallされる
   # => '$ bin/rails routes'で確認
   def index
-    @todos = Todo.where(status: 0) #インスタンス変数@todosを使っているのは、後でviewで利用するため(複数形)　#[参考]http://igarashikuniaki.net/rails_textbook/crud.html
+    @todos = Todo.where(status: 0).order(priority: "DESC") #インスタンス変数@todosを使っているのは、後でviewで利用するため(複数形)　#[参考]http://igarashikuniaki.net/rails_textbook/crud.html
     # sinatraで言う「erb :index」がない...
     # =>「views > todos > index.html.erb」を探してくれる
     # つまり、'Controller'xxxアクションがcallされるとデフォルトで'views'xxx.html.erbをrender
@@ -65,6 +65,13 @@ class TodosController < ApplicationController
       end
     end
   end
+  
+  # [追加アクション]PATCH /todos/1/status (→routes.rb)
+  def status
+    @todo.status = params[:status]
+    @todo.save!
+    redirect_to root_url, notice: "「#{@todo.title}」を完了しました！" #root_url => idnexへ飛ばす
+  end
 
   # DELETE /todos/1
   # DELETE /todos/1.json
@@ -88,7 +95,7 @@ class TodosController < ApplicationController
       # データを取得
       # セキュリティの為の機能(Strong Parameters)
         # paramsに入ってくる値を指定（それ以外入るとerror => Unpermitted parameter: xxx）
-      params.require(:todo).permit(:title, :detail, :status)
+      params.require(:todo).permit(:title, :detail, :status, :priority, :category_id)
       # ===== params.require(:todo).permit(:title, :detail, :status)とは？ =====
       # params[:todo] = {title: "first", details: "詳細", status: 1}みたいなをそれぞれ「データ取得」
       # params[:todo][:title] # => "first"

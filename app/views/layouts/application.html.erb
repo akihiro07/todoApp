@@ -10,7 +10,16 @@
   </head>
 
   <body>
-    <h1>TODO app</h1>
-    <%= yield %>
+    <h1><%= link_to 'TODO app', root_path, class: "link" %></h1> <!-- todos_pathと同じ(routes.rbで設定) -->
+    
+    <div id="wrapper" class="todo">
+      <div class="todo__add">
+        <%= link_to 'TODO一覧', todos_path %>
+        <%= link_to 'TODOを追加する', new_todo_path %>
+        <%= link_to 'カテゴリー一覧', categories_path %>
+        <%= link_to 'カテゴリーを追加する', new_category_path %>
+      </div>
+      <%= yield %>
+    </div>
   </body>
 </html>

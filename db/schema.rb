@@ -10,21 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-# migrate => Rubyで(=SQLを使用せず)DBの中身を変更できる機能。DB操作をコマンドで行える仕組み。
-  # ActiveRecordと言う機能を使用することで可能
-# ActiveRecord => RubyからDBの操作を簡単に行える為の仕組み。
+ActiveRecord::Schema.define(version: 2020_01_08_025638) do
 
-# `$ bin/rails db:migrate RAILS_ENV=development` => DBを最新化
-# `$ bin/rake db:migrate RAILS_ENV=development`と同じ
-
-ActiveRecord::Schema.define(version: 2020_01_06_094119) do
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "todos", force: :cascade do |t|
     t.string "title"
     t.text "detail"
-    t.integer "status"
+    t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "priority", default: 0
+    t.integer "category_id"
   end
 
 end

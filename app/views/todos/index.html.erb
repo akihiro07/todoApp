@@ -7,7 +7,8 @@
     <tr>
       <th>Title</th>
       <th>Detail</th>
-      <th>Status</th>
+      <th>priority</th>
+      <th>category</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -18,15 +19,12 @@
         <!-- 「todo」だけで「todo.id」 を使って、 「todos/:id」というパスを自動的に作成 -->
         <td><%= link_to todo do %><%= todo.title %><% end %></td> <!-- polymorphic_path機能 --><!-- todo_path(todo)と同じ意味 -->
         <td><%= todo.detail %></td>
-        <td><%= todo.status %></td>
-        <td><%= link_to '完了', edit_todo_path(todo) %></td>
-        <td><%= link_to '編集', edit_todo_path(todo) %></td> <!-- todoにはtodo.idがautoで入る -->
+        <td><%= todo.priority %></td>
+        <td><%= todo.category.try(:name) %></td> <!-- categoryを指定されていない場合もある->合ったときだけ表示したい->try(:xxx) -->
+        <td><%= link_to '完了', status_todo_path(todo, status: 1), method: :patch %></td> <!-- [imp.]「method: :HTTP通信名」で通信方法を指定できる --><!-- hashをparamsとして自由に送れる -->
+        <td><%= link_to '編集', edit_todo_path(todo) %></td> <!-- [imp.]todoにはtodo.idがautoで入る -->
         <td><%= link_to '削除', todo, method: :delete, data: { confirm: '本当に削除しますか？' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Todo', new_todo_path %>

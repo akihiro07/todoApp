@@ -2,7 +2,7 @@
   <!-- ===== error ===== -->
   <% if todo.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(todo.errors.count, "error") %> prohibited this todo from being saved:</h2>
+      <h2><%= pluralize(todo.errors.count, "個") %> のエラーがあります。:</h2>
 
       <ul>
       <% todo.errors.full_messages.each do |message| %>
@@ -26,10 +26,16 @@
     <%= form.label :detail %>
     <%= form.text_area :detail %>
   </div>
-
+  
   <div class="field">
-    <%= form.label :status %>
-    <%= form.number_field :status %>
+    <%= form.label :priority %>
+    <%= form.number_field :priority %>
+  </div>
+  
+  <div class="field">
+    <%= form.label :category_id %>
+    <!-- TODO:controllerに記述 -->
+    <% @categories = Category.all %><%= form.select :category_id, @categories.map{|category| [category.name, category.id]}, {include_blank: true}, class: 'categories' %> <!-- https://shinmedia20.com/rails-select-box -->
   </div>
 
   <div class="actions">
