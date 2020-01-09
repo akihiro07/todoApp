@@ -3,6 +3,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.3'
 
+# kaminari(pegenation機能追加)
+gem 'kaminari'
+
 # I18n setting
 gem 'rails-i18n', '~> 5.1'
 

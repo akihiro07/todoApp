@@ -9,7 +9,8 @@ class TodosController < ApplicationController
   # '/'でtodosコントローラーが叩かれてindexアクションがcallされる
   # => '$ bin/rails routes'で確認
   def index
-    @todos = Todo.where(status: 0).order(priority: "DESC") #インスタンス変数@todosを使っているのは、後でviewで利用するため(複数形)　#[参考]http://igarashikuniaki.net/rails_textbook/crud.html
+    # [参考][pagenation]https://teratail.com/questions/63813
+    @todos = Todo.where(status: 0).order(priority: "DESC").page params[:page] #インスタンス変数@todosを使っているのは、後でviewで利用するため(複数形)　#[参考]http://igarashikuniaki.net/rails_textbook/crud.html
     # sinatraで言う「erb :index」がない...
     # =>「views > todos > index.html.erb」を探してくれる
     # つまり、'Controller'xxxアクションがcallされるとデフォルトで'views'xxx.html.erbをrender

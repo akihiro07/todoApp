@@ -1,4 +1,11 @@
 ja:
+  views:
+    pagination:
+      first: "&#171;"
+      last: "&#187;"
+      previous: "&#139;"
+      next: "&#155;"
+      truncate: "&hellip;"
   activerecord:
     attributes:
         todo:
